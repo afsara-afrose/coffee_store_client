@@ -1,29 +1,42 @@
 import React from 'react';
 import { useLoaderData } from 'react-router';
+import Swal from 'sweetalert2';
 
 
 const UpdateCoffee = () => {
-    const {_id, name, quantity, price, taste, supplier, photo, details} = useLoaderData();
+    const { _id, name, quantity, price, taste, supplier, photo, details } = useLoaderData();
 
-    const handleUpdateCoffee=e=>{
+    const handleUpdateCoffee = e => {
         e.preventDefault();
-        const form=e.target;
-        const formdata=new FormData(form);
-        const UpdateCoffee=Object.fromEntries(formdata.entries())
+        const form = e.target;
+        const formdata = new FormData(form);
+        const UpdateCoffee = Object.fromEntries(formdata.entries())
         console.log(UpdateCoffee);
 
-        fetch(`http://localhost:3000/coffees/${_id}`,{
-            method:'PUT',
-            headers:{
-                'content-type':'application/json',
+        fetch(`http://localhost:3000/coffees/${_id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
             },
-            body:JSON.stringify(UpdateCoffee)
+            body: JSON.stringify(UpdateCoffee)
         })
-        .then(res=>res.json())
-        .then(data=>{
+            .then(res => res.json())
+            .then(data=>{
+                if(data.modifiedCount){
+                       Swal.fire({
+                position: "top",
+                icon: "success",
+                title: "coffee Updated Successfully",
+                showConfirmButton: false,
+                timer: 1500
+            });
+
+                }
+         
+
             console.log(data)
         })
-       
+
 
     }
     return (
@@ -33,7 +46,7 @@ const UpdateCoffee = () => {
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                         <label className="label">Name</label>
-                        <input type="text" className="input  w-full " name='name'defaultValue={name} placeholder="Enter Coffe Name" />
+                        <input type="text" className="input  w-full " name='name' defaultValue={name} placeholder="Enter Coffe Name" />
                     </fieldset>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
@@ -49,22 +62,22 @@ const UpdateCoffee = () => {
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                         <label className="label">Taste</label>
-                        <input type="text" className="input  w-full " name='taste'defaultValue={taste} placeholder="Enter Coffe Taste" />
+                        <input type="text" className="input  w-full " name='taste' defaultValue={taste} placeholder="Enter Coffe Taste" />
                     </fieldset>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                         <label className="label">Price</label>
-                        <input type="text" className="input  w-full " name='price'defaultValue={price} placeholder="Each Cup price" />
+                        <input type="text" className="input  w-full " name='price' defaultValue={price} placeholder="Each Cup price" />
                     </fieldset>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                         <label className="label">Details</label>
-                        <input type="text" className="input  w-full " name='details'defaultValue={details} placeholder="Enter Coffe Details" />
+                        <input type="text" className="input  w-full " name='details' defaultValue={details} placeholder="Enter Coffe Details" />
                     </fieldset>
 
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                         <label className="label">Photo</label>
-                        <input type="text" className="input  w-full " name='photo'defaultValue={photo} placeholder="Enter Coffe Photo" />
+                        <input type="text" className="input  w-full " name='photo' defaultValue={photo} placeholder="Enter Coffe Photo" />
                     </fieldset>
 
 

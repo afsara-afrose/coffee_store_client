@@ -17,7 +17,9 @@ const Home = () => {
                     coffee={coffee}>
                     setcoffees={setcoffees}
                     </CoffeeCard>)
-            }        </div>
+            } 
+
+            </div>       
     );
 };
 
